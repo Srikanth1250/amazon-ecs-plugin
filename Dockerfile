@@ -1,12 +1,11 @@
+# Use the official Jenkins base image
 FROM jenkins/jenkins:lts
 
+# Switch to root to install plugins
 USER root
 
-# Optional: install curl if needed
-RUN apt-get update && apt-get install -y curl
+# Install required plugins using the Jenkins plugin CLI
+RUN jenkins-plugin-cli --plugins unique-id
 
-# Switch back to jenkins user
+# (Optional) Switch back to Jenkins user
 USER jenkins
-
-# Install the unique-id plugin
-RUN jenkins-plugin-cli --plugins unique-id
